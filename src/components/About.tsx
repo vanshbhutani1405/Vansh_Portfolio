@@ -6,10 +6,20 @@ const About = () => {
       <div className="about-me">
         <h3 className="title">About Me</h3>
         <p className="para">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Hic quis
-          dolores numquam iusto Ratione earum ducimus autem id iure pariatur
-          dolorum quae maiores.
+          Computer Science undergraduate (CGPA 8.65/10, IKGPTU, 2027) specializing in Machine Learning, Generative AI, and
+          real-world deployed systems. Experienced in building production-ready ML pipelines, RAG systems, and explainable AI
+          models. Seeking AI/ML or Data Science internships.
         </p>
+        <div className="about-roles">
+          <h4>Targeting Roles</h4>
+          <div className="roles-flex">
+            <span className="role-tag">AI Engineer</span>
+            <span className="role-tag">AI Consultant</span>
+            <span className="role-tag">AI/ML Engineer</span>
+            <span className="role-tag">ML Engineer / Data Scientist</span>
+            <span className="role-tag">AI Product Manager</span>
+          </div>
+        </div>
       </div>
     </div>
   );
