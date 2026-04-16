@@ -86,13 +86,7 @@ const Work = () => {
   const [activeIndex, setActiveIndex] = useState(0);
   const sectionRef = useRef<HTMLDivElement>(null);
 
-  const getScrollProgress = useCallback(() => {
-    const section = sectionRef.current;
-    if (!section) return 0;
-    const rect = section.getBoundingClientRect();
-    const start = window.scrollY + rect.top;
-    return (window.scrollY - start) / translateXRef.current;
-  }, []);
+  
 
   const goToProject = useCallback((index: number) => {
     const clampedIndex = Math.max(0, Math.min(index, projects.length - 1));
