@@ -1,17 +1,14 @@
-.work-section h2 {
-  margin-top: 100px;
-  font-size: 70px;
-  font-weight: 500;
-}
-.work-section h2 > span {
-  color: var(--accentColor);
-}
+/* ============================================================
+   Work Section
+   ============================================================ */
+
 .work-section {
   transition: 0s;
   height: 100vh;
   box-sizing: border-box;
   will-change: transform;
 }
+
 .work-container {
   margin: auto;
   display: flex;
@@ -19,6 +16,97 @@
   height: 100%;
   align-content: stretch;
 }
+
+/* ---- Header row (title + nav controls) ---- */
+.work-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  flex-shrink: 0;
+  padding-right: 40px;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.work-section h2 {
+  margin-top: 100px;
+  margin-bottom: 0;
+  font-size: 70px;
+  font-weight: 500;
+}
+.work-section h2 > span {
+  color: var(--accentColor);
+}
+
+/* ---- Nav controls ---- */
+.work-nav {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding-bottom: 8px;
+}
+
+/* Dot indicators */
+.work-dots {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.work-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(255, 255, 255, 0.2);
+  cursor: pointer;
+  padding: 0;
+  transition: background 0.3s, transform 0.3s, width 0.3s;
+}
+.work-dot--active {
+  background: var(--accentColor);
+  width: 24px;
+  border-radius: 4px;
+}
+
+/* Arrow buttons */
+.work-arrows {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.work-arrow-btn {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  background: rgba(255, 255, 255, 0.05);
+  color: #eae5ec;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.25s, border-color 0.25s, transform 0.2s, color 0.25s;
+}
+.work-arrow-btn:hover:not(:disabled) {
+  background: rgba(194, 164, 255, 0.15);
+  border-color: var(--accentColor);
+  color: var(--accentColor);
+  transform: scale(1.08);
+}
+.work-arrow-btn:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+.work-counter {
+  font-size: 13px;
+  font-weight: 300;
+  color: rgba(234, 229, 236, 0.5);
+  min-width: 50px;
+  text-align: center;
+  letter-spacing: 0.05em;
+}
+
+/* ---- Scroll flex row ---- */
 .work-flex {
   width: 100%;
   display: flex;
@@ -27,6 +115,7 @@
   padding-right: 120px;
   position: relative;
 }
+
 .work-box {
   padding: 80px;
   display: flex;
@@ -35,7 +124,7 @@
   box-sizing: border-box;
   border-right: 1px solid #363636;
   flex-shrink: 0;
-  gap: 50px;
+  gap: 18px;
   justify-content: start;
 }
 .work-flex .work-box:nth-child(even) {
@@ -55,11 +144,13 @@
 .work-flex::after {
   top: 100%;
 }
+
+/* ---- Project info ---- */
 .work-title {
   justify-content: space-between;
   display: flex;
   width: 100%;
-  margin-bottom: 20px;
+  margin-bottom: 4px;
 }
 .work-title > div {
   text-align: right;
@@ -80,11 +171,69 @@
   font-weight: 200;
   color: #adacac;
   margin: 0;
-  margin-top: 3px;
 }
-.work-info > p {
+.work-desc {
+  font-size: 13.5px !important;
+  line-height: 1.65 !important;
+  color: rgba(234, 229, 236, 0.7) !important;
   width: 90%;
 }
+
+/* Highlight bullets */
+.work-highlights {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.work-highlights li {
+  font-size: 12.5px;
+  font-weight: 300;
+  color: rgba(234, 229, 236, 0.55);
+  padding-left: 16px;
+  position: relative;
+  line-height: 1.5;
+}
+.work-highlights li::before {
+  content: "→";
+  position: absolute;
+  left: 0;
+  color: var(--accentColor);
+  font-size: 11px;
+  top: 1px;
+}
+
+/* Tool tags */
+.work-tools-row {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.work-tools-row h4 {
+  font-size: 12px !important;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: rgba(234, 229, 236, 0.4) !important;
+  font-weight: 500 !important;
+}
+.work-tool-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.work-tool-tag {
+  padding: 3px 10px;
+  border-radius: 20px;
+  border: 1px solid rgba(194, 164, 255, 0.25);
+  background: rgba(194, 164, 255, 0.06);
+  font-size: 11.5px;
+  color: rgba(194, 164, 255, 0.75);
+  font-weight: 300;
+}
+
+/* ---- Image ---- */
 .work-image {
   display: flex;
   width: 100%;
@@ -127,28 +276,28 @@
 }
 .work-image img {
   max-width: 100%;
-  max-height: 350px;
+  max-height: 280px;
 }
+
+/* ---- Responsive ---- */
 @media only screen and (max-height: 900px) {
   .work-image img {
-    max-height: 250px;
+    max-height: 200px;
   }
   .work-box {
-    padding-top: 40px;
-    padding-bottom: 40px;
+    padding-top: 30px;
+    padding-bottom: 30px;
+    gap: 12px;
   }
   .work-section h2 {
     font-size: 60px;
-    margin-bottom: 30px;
-    margin-top: 70px;
+    margin-top: 60px;
   }
 }
+
 @media only screen and (max-width: 1400px) {
   .work-title h3 {
     font-size: 35px;
-  }
-  .work-info p {
-    font-size: 13px;
   }
   .work-info h4 {
     font-size: 15px;
@@ -165,10 +314,12 @@
     font-size: 50px;
   }
 }
-@media only screen and (max-width: 1400px) {
+
+@media only screen and (max-width: 1200px) {
   .work-box {
     width: 350px;
     padding: 30px;
+    gap: 10px;
   }
   .work-flex {
     margin-left: -30px;
@@ -178,33 +329,34 @@
 
 @media only screen and (max-height: 650px) {
   .work-image img {
-    max-height: 200px;
+    max-height: 160px;
   }
   .work-section h2 {
     font-size: 40px;
-    margin-bottom: 20px;
   }
   .work-box {
-    gap: 20px;
+    gap: 8px;
   }
 }
-/* @media only screen and (max-width: 900px) {
-  .work-image img {
-    max-height: 200px;
-  }
-  .work-section h2 {
-    font-size: 40px;
-    margin-bottom: 20px;
-  }
-  .work-box {
-    gap: 20px;
-  }
-} */
+
 @media only screen and (max-width: 1025px) {
   .work-container {
     align-content: normal;
   }
   .work-flex {
     height: auto;
+  }
+  .work-header {
+    padding-right: 16px;
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .work-dots {
+    display: none;
+  }
+  .work-section h2 {
+    font-size: 36px;
+    margin-top: 60px;
   }
 }
