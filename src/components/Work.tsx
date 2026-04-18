@@ -81,71 +81,32 @@ const projects = [
 ];
 
 const Work = () => {
-  const translateXRef = useRef<number>(0);
-  const scrollPerStep = useRef<number>(0);
   const [activeIndex, setActiveIndex] = useState(0);
+
   const sectionRef = useRef<HTMLDivElement>(null);
 
   
 
   const goToProject = useCallback((index: number) => {
     const clampedIndex = Math.max(0, Math.min(index, projects.length - 1));
-    const section = sectionRef.current;
-    if (!section) return;
-
-    const rect = section.getBoundingClientRect();
-    const sectionStart = window.scrollY + rect.top;
-    const targetScroll =
-      sectionStart + clampedIndex * scrollPerStep.current;
-
-    window.scrollTo({ top: targetScroll, behavior: "smooth" });
     setActiveIndex(clampedIndex);
+
+    const boxes = document.querySelectorAll(".work-box");
+    if (boxes.length > 0) {
+      const boxWidth = boxes[0].getBoundingClientRect().width;
+      gsap.to(".work-flex", {
+        x: -clampedIndex * boxWidth,
+        duration: 0.8,
+        ease: "power3.out",
+      });
+    }
   }, []);
 
   useGSAP(() => {
-    let translateX: number = 0;
-
-    function setTranslateX() {
-      const box = document.getElementsByClassName("work-box");
-      const rectLeft = document
-        .querySelector(".work-container")!
-        .getBoundingClientRect().left;
-      const rect = box[0].getBoundingClientRect();
-      const parentWidth = box[0].parentElement!.getBoundingClientRect().width;
-      let padding: number =
-        parseInt(window.getComputedStyle(box[0]).padding) / 2;
-      translateX = rect.width * box.length - (rectLeft + parentWidth) + padding;
-      translateXRef.current = translateX;
-      scrollPerStep.current = translateX / (projects.length - 1);
-    }
-
-    setTranslateX();
-
-    let timeline = gsap.timeline({
-      scrollTrigger: {
-        trigger: ".work-section",
-        start: "top top",
-        end: `+=${translateX}`,
-        scrub: true,
-        pin: true,
-        id: "work",
-        onUpdate: (self) => {
-          const idx = Math.round(self.progress * (projects.length - 1));
-          setActiveIndex(idx);
-        },
-      },
-    });
-
-    timeline.to(".work-flex", {
-      x: -translateX,
-      ease: "none",
-    });
-
-    return () => {
-      timeline.kill();
-      ScrollTrigger.getById("work")?.kill();
-    };
+    // Initial position if needed
+    gsap.set(".work-flex", { x: 0 });
   }, []);
+
 
   return (
     <div className="work-section" id="work" ref={sectionRef}>
