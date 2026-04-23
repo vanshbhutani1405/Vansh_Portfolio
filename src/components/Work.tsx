@@ -1,10 +1,6 @@
 import "./styles/Work.css";
 import WorkImage from "./WorkImage";
-import gsap from "gsap";
-import { useGSAP } from "@gsap/react";
-import { useRef, useState, useCallback } from "react";
-
-gsap.registerPlugin(useGSAP);
+import { useEffect, useState } from "react";
 
 const projects = [
   {
@@ -80,103 +76,91 @@ const projects = [
 ];
 
 const Work = () => {
-  const [activeIndex, setActiveIndex] = useState(0);
+  const [columns, setColumns] = useState(3);
 
-  const sectionRef = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    const updateColumns = () => {
+      const width = window.innerWidth;
 
-  
+      if (width <= 640) {
+        setColumns(1);
+        return;
+      }
 
-  const goToProject = useCallback((index: number) => {
-    const clampedIndex = Math.max(0, Math.min(index, projects.length - 1));
-    setActiveIndex(clampedIndex);
+      if (width <= 1024) {
+        setColumns(2);
+        return;
+      }
 
-    const boxes = document.querySelectorAll(".work-box");
-    if (boxes.length > 0) {
-      const boxWidth = boxes[0].getBoundingClientRect().width;
-      gsap.to(".work-flex", {
-        x: -clampedIndex * boxWidth,
-        duration: 0.8,
-        ease: "power3.out",
-      });
-    }
-  }, []);
+      setColumns(3);
+    };
 
-  useGSAP(() => {
-    // Initial position if needed
-    gsap.set(".work-flex", { x: 0 });
+    updateColumns();
+    window.addEventListener("resize", updateColumns, { passive: true });
+
+    return () => {
+      window.removeEventListener("resize", updateColumns);
+    };
   }, []);
 
 
   return (
-    <div className="work-section" id="work" ref={sectionRef}>
-      <div className="work-container section-container">
+    <div
+      className="work-section"
+      id="work"
+      style={{
+        height: "auto",
+        minHeight: "100vh",
+        overflowX: "hidden",
+        overflowY: "visible",
+      }}
+    >
+      <div
+        className="work-container section-container"
+        style={{
+          width: "100%",
+          maxWidth: "1200px",
+          margin: "0 auto",
+          padding: "clamp(16px, 2.5vw, 32px)",
+          boxSizing: "border-box",
+          height: "auto",
+        }}
+      >
         <div className="work-header">
           <h2>
             My <span>Work</span>
           </h2>
-
-          {/* Navigation controls */}
-          <div className="work-nav">
-            <div className="work-dots">
-              {projects.map((_, i) => (
-                <button
-                  key={i}
-                  className={`work-dot ${i === activeIndex ? "work-dot--active" : ""}`}
-                  onClick={() => goToProject(i)}
-                  aria-label={`Go to project ${i + 1}`}
-                  id={`work-dot-${i}`}
-                  data-cursor="disable"
-                />
-              ))}
-            </div>
-            <div className="work-arrows">
-              <button
-                className="work-arrow-btn"
-                onClick={() => goToProject(activeIndex - 1)}
-                disabled={activeIndex === 0}
-                aria-label="Previous project"
-                id="work-prev-btn"
-                data-cursor="disable"
-              >
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-                  <path
-                    d="M15 18l-6-6 6-6"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-                </svg>
-              </button>
-              <span className="work-counter">
-                {String(activeIndex + 1).padStart(2, "0")} /{" "}
-                {String(projects.length).padStart(2, "0")}
-              </span>
-              <button
-                className="work-arrow-btn"
-                onClick={() => goToProject(activeIndex + 1)}
-                disabled={activeIndex === projects.length - 1}
-                aria-label="Next project"
-                id="work-next-btn"
-                data-cursor="disable"
-              >
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-                  <path
-                    d="M9 18l6-6-6-6"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-                </svg>
-              </button>
-            </div>
-          </div>
         </div>
 
-        <div className="work-flex">
+        <div
+          className="work-flex"
+          style={{
+            display: "grid",
+            gridTemplateColumns: `repeat(${columns}, minmax(0, 1fr))`,
+            gap: "clamp(16px, 2.2vw, 28px)",
+            width: "100%",
+            height: "auto",
+            margin: 0,
+            padding: 0,
+            transform: "none",
+          }}
+        >
           {projects.map((project, index) => (
-            <div className="work-box" key={index}>
+            <article
+              className="work-box"
+              key={index}
+              style={{
+                width: "100%",
+                minWidth: 0,
+                maxWidth: "100%",
+                padding: "clamp(18px, 2vw, 28px)",
+                boxSizing: "border-box",
+                borderRight: "none",
+                border: "1px solid #363636",
+                borderRadius: "18px",
+                gap: "14px",
+              }}
+            >
               <div className="work-info">
                 <div className="work-title">
                   <h3>0{index + 1}</h3>
@@ -210,7 +194,7 @@ const Work = () => {
                 alt={project.name}
                 link={project.link}
               />
-            </div>
+            </article>
           ))}
         </div>
       </div>
