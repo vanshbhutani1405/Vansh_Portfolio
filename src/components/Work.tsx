@@ -1,13 +1,24 @@
 import "./styles/Work.css";
 import WorkImage from "./WorkImage";
-import { useEffect, useState } from "react";
+interface Project {
+  name: string;
+  category: string;
+  tools: string[];
+  image: string;
+  desc: string;
+  highlights: string[];
+  githubLink: string;
+  liveLink?: string;
+  status?: "in-development";
+}
 
-const projects = [
+const projects: Project[] = [
   {
     name: "PranRakshak AI",
     category: "Healthcare & ML",
-    tools: "Python, FastAPI, SQLite, React, SHAP",
-    link: "https://github.com/vanshbhutani1405/PRANRAKSHAK_AI",
+    tools: ["Python", "FastAPI", "SQLite", "React", "SHAP"],
+    githubLink: "https://github.com/vanshbhutani1405/PRANRAKSHAK_AI",
+    liveLink: "https://pranrakshak-ai.vercel.app/",
     image: "/images/pranrakshak.png",
     desc: "Intelligent hospital command center that continuously monitors patient vitals and predicts early sepsis risk using machine learning — enabling proactive, life-saving clinical decisions.",
     highlights: [
@@ -20,8 +31,9 @@ const projects = [
   {
     name: "Quora Question Pairs NLP",
     category: "NLP",
-    tools: "Python, Machine Learning, NLP",
-    link: "https://github.com/vanshbhutani1405/Quora-Question-Pairs-NLP",
+    tools: ["Python", "Machine Learning", "NLP"],
+    githubLink: "https://github.com/vanshbhutani1405/Quora-Question-Pairs-NLP",
+    liveLink: "https://quora-question-pairs-nlp.streamlit.app",
     image: "/images/quora.png",
     desc: "Advanced NLP pipeline that detects semantically duplicate questions on forum platforms — improving content quality and reducing redundancy at scale.",
     highlights: [
@@ -32,10 +44,11 @@ const projects = [
     ],
   },
   {
-    name: "Customer Churn Prediction",
+    name: "Customer Churn ANN Classifier",
     category: "Deep Learning / ANN",
-    tools: "Python, ANN, TensorFlow, Streamlit",
-    link: "https://github.com/vanshbhutani1405/Customer-Churn-ANN-Classifier-",
+    tools: ["Python", "ANN", "TensorFlow", "Streamlit"],
+    githubLink: "https://github.com/vanshbhutani1405/Customer-Churn-ANN-Classifier-",
+    liveLink: "https://customer-churn-ann-classifier-vansh.streamlit.app",
     image: "/images/customer_churn.png",
     desc: "Deep Learning ANN model that predicts customer attrition with high accuracy — empowering businesses to identify at-risk customers and drive targeted retention strategies.",
     highlights: [
@@ -48,8 +61,9 @@ const projects = [
   {
     name: "Student Performance Prediction",
     category: "End-to-End ML",
-    tools: "Python, Flask, Scikit-learn, AWS",
-    link: "https://github.com/vanshbhutani1405/End-to-End-ML_Project",
+    tools: ["Python", "Flask", "Scikit-learn", "AWS"],
+    githubLink: "https://github.com/vanshbhutani1405/End-to-End-ML_Project",
+    liveLink: "https://vansh-end-to-end-ml.onrender.com",
     image: "/images/student_performance.png",
     desc: "Production-grade end-to-end ML pipeline that predicts student math scores from demographic and academic factors — with full CI/CD, modular architecture, and cloud deployment.",
     highlights: [
@@ -60,10 +74,25 @@ const projects = [
     ],
   },
   {
+    name: "RAGify",
+    category: "Generative AI / RAG",
+    tools: ["Python", "LangChain", "Vector DB", "LLMs", "FastAPI"],
+    githubLink: "https://github.com/vanshbhutani1405/RAGify",
+    image: "/images/ragify-coming-soon.webp",
+    status: "in-development",
+    desc: "Retrieval-augmented generation platform for domain-specific knowledge assistants with context-aware responses and scalable ingestion workflows.",
+    highlights: [
+      "Document ingestion pipeline for structured and unstructured data",
+      "Hybrid retrieval strategy for higher answer relevance",
+      "Conversation-aware prompt orchestration",
+      "Designed for production-ready enterprise AI assistants",
+    ],
+  },
+  {
     name: "FarmCulture",
     category: "AgriTech",
-    tools: "Python, Machine Learning, Data Analysis",
-    link: "https://github.com/vanshbhutani1405/FarmCulture",
+    tools: ["Python", "Machine Learning", "Data Analysis"],
+    githubLink: "https://github.com/vanshbhutani1405/FarmCulture",
     image: "/images/farmculture.png",
     desc: "AI-powered agri-tech ecosystem that recommends optimal crops based on soil and climate data — bridging the gap between data science and sustainable farming.",
     highlights: [
@@ -76,34 +105,6 @@ const projects = [
 ];
 
 const Work = () => {
-  const [columns, setColumns] = useState(3);
-
-  useEffect(() => {
-    const updateColumns = () => {
-      const width = window.innerWidth;
-
-      if (width <= 640) {
-        setColumns(1);
-        return;
-      }
-
-      if (width <= 1024) {
-        setColumns(2);
-        return;
-      }
-
-      setColumns(3);
-    };
-
-    updateColumns();
-    window.addEventListener("resize", updateColumns, { passive: true });
-
-    return () => {
-      window.removeEventListener("resize", updateColumns);
-    };
-  }, []);
-
-
   return (
     <div
       className="work-section"
@@ -130,45 +131,29 @@ const Work = () => {
           <h2>
             My <span>Work</span>
           </h2>
+          <p>
+            Production-focused AI/ML projects built for real users, measurable impact,
+            and scalable deployment.
+          </p>
         </div>
 
-        <div
-          className="work-flex"
-          style={{
-            display: "grid",
-            gridTemplateColumns: `repeat(${columns}, minmax(0, 1fr))`,
-            gap: "clamp(16px, 2.2vw, 28px)",
-            width: "100%",
-            height: "auto",
-            margin: 0,
-            padding: 0,
-            transform: "none",
-          }}
-        >
+        <div className="work-flex">
           {projects.map((project, index) => (
-            <article
-              className="work-box"
-              key={index}
-              style={{
-                width: "100%",
-                minWidth: 0,
-                maxWidth: "100%",
-                padding: "clamp(18px, 2vw, 28px)",
-                boxSizing: "border-box",
-                borderRight: "none",
-                border: "1px solid #363636",
-                borderRadius: "18px",
-                gap: "14px",
-              }}
-            >
+            <article className="work-box" key={project.name}>
               <div className="work-info">
                 <div className="work-title">
-                  <h3>0{index + 1}</h3>
+                  <h3>{String(index + 1).padStart(2, "0")}</h3>
                   <div>
                     <h4>{project.name}</h4>
                     <p>{project.category}</p>
                   </div>
                 </div>
+                {project.status === "in-development" && (
+                  <div className="work-status" role="status" aria-live="polite">
+                    <span className="work-status-dot" aria-hidden="true" />
+                    In Development
+                  </div>
+                )}
                 <p className="work-desc">{project.desc}</p>
 
                 {/* Highlights */}
@@ -181,19 +166,40 @@ const Work = () => {
                 <div className="work-tools-row">
                   <h4>Tools</h4>
                   <div className="work-tool-tags">
-                    {project.tools.split(", ").map((tool, ti) => (
-                      <span key={ti} className="work-tool-tag">
+                    {project.tools.map((tool) => (
+                      <span key={tool} className="work-tool-tag">
                         {tool}
                       </span>
                     ))}
                   </div>
                 </div>
+
+                <div className="work-cta-row">
+                  {project.liveLink && (
+                    <a
+                      href={project.liveLink}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="work-cta work-cta-primary"
+                      data-cursor="disable"
+                      aria-label={`Open live demo for ${project.name}`}
+                    >
+                      Live Demo
+                    </a>
+                  )}
+                  <a
+                    href={project.githubLink}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="work-cta work-cta-secondary"
+                    data-cursor="disable"
+                    aria-label={`Open GitHub repository for ${project.name}`}
+                  >
+                    GitHub
+                  </a>
+                </div>
               </div>
-              <WorkImage
-                image={project.image}
-                alt={project.name}
-                link={project.link}
-              />
+              <WorkImage image={project.image} alt={project.name} />
             </article>
           ))}
         </div>
