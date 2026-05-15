@@ -29,6 +29,22 @@ const projects: Project[] = [
     ],
   },
   {
+    name: "RAGify",
+    category: "Generative AI / RAG",
+    tools: ["FastAPI", "LangChain", "ChromaDB", "HuggingFace", "Groq LLM"],
+    githubLink: "https://github.com/vanshbhutani1405/RAGify",
+    liveLink: "https://ragify-vansh.vercel.app/",
+    image:
+      "https://github.com/user-attachments/assets/1229dc9a-5676-42f8-93d7-eaaad967c943",
+    desc: "AI-powered multi-domain RAG platform for PDF upload and document-grounded querying with low-latency, production-oriented response pipelines.",
+    highlights: [
+      "Built an AI-powered multi-domain RAG platform supporting PDF upload and document-based querying.",
+      "Integrated FastAPI, LangChain, ChromaDB, HuggingFace embeddings, and Groq LLM for low-latency responses.",
+      "Implemented isolated document context retrieval to prevent cross-domain information leakage.",
+      "Added semantic retrieval, chat memory, and scalable backend architecture for real-world use cases.",
+    ],
+  },
+  {
     name: "Quora Question Pairs NLP",
     category: "NLP",
     tools: ["Python", "Machine Learning", "NLP"],
@@ -71,21 +87,6 @@ const projects: Project[] = [
       "Model selection across 10+ regression algorithms",
       "Flask web app with live prediction API",
       "Deployed on render",
-    ],
-  },
-  {
-    name: "RAGify",
-    category: "Generative AI / RAG",
-    tools: ["Python", "LangChain", "Vector DB", "LLMs", "FastAPI"],
-    githubLink: "https://github.com/vanshbhutani1405/RAGify",
-    image: "/images/ragify-coming-soon.webp",
-    status: "in-development",
-    desc: "Retrieval-augmented generation platform for domain-specific knowledge assistants with context-aware responses and scalable ingestion workflows.",
-    highlights: [
-      "Document ingestion pipeline for structured and unstructured data",
-      "Hybrid retrieval strategy for higher answer relevance",
-      "Conversation-aware prompt orchestration",
-      "Designed for production-ready enterprise AI assistants",
     ],
   },
   {
