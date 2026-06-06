@@ -10,6 +10,7 @@ import SocialIcons from "./SocialIcons";
 import WhatIDo from "./WhatIDo";
 import Work from "./Work";
 import setSplitText from "./utils/splitText";
+import SkillsSection from "./SkillsSection";
 
 const TechStack = lazy(() => import("./TechStack"));
 
@@ -50,6 +51,7 @@ const MainContainer = ({ children }: PropsWithChildren) => {
                 <TechStack />
               </Suspense>
             )}
+            <SkillsSection />
             <Contact />
           </div>
         </div>
