@@ -136,7 +136,7 @@ const SkillsSection: React.FC = () => {
     ];
   }, []);
 
-  const totalSkills = categories.reduce((acc, c) => acc + c.skills.length, 0);
+  
 
   return (
     <section className="skills-section" id="skills">
